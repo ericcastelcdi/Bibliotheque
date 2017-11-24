@@ -1,0 +1,163 @@
+@charset "UTF-8";
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.PageParDefaut {
+	height: 100%;
+}
+
+.boutonADroite {
+	float:right; 
+}
+
+.boutonAGauche {
+	float:left; 
+}
+
+img.superbg {
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:-1;
+    margin-top:50px;
+}
+
+.margeHaut {
+	margin-top:50px;
+}
+
+.bienvenue {
+	color:white;
+	font-family:Edwardian Script ITC;
+	font-size:120;
+	text-shadow: 6px 6px 2px black;
+}
+
+.bienvenue2 {
+	color:white;
+	font-family:Edwardian Script ITC;
+	font-size:90;
+	text-shadow: 6px 6px 2px black;
+}
+
+.centrage {
+	text-align:center;
+	padding-Top:100px;
+}
+
+.centrage2 {
+	text-align:center;
+
+}
+
+.margeBas {
+	margin-bottom:10px;
+}
+
+.floatDroite {
+	float:right;
+}
+
+.centrer-div {
+     margin-left:auto;
+     margin-right:auto;
+     width: 250px;
+}
+
+.centrer-div2 {
+     margin-left:auto;
+     margin-right:auto;
+}
+
+.centrer-div3 {
+     margin-left:auto;
+     margin-right:auto;
+     width: 300px;
+}
+
+.libelle {
+	margin-bottom:10px;
+}
+
+.nom {
+	text-align:center;
+	color:white;
+	font-size:60;
+	text-shadow: 3px 3px 3px black;
+}
+
+.input {
+	width: 100%;
+}
+
+.centrageInput {
+	text-align:center;
+}
+
+.ombre{
+	box-shadow: 4px 4px 8px black;
+}
+
+.ombre2{
+	box-shadow: 4px 4px 20px black;
+}
+
+.divGauche {
+	float:left;
+	width:50%;
+}
+
+.divDroite {
+	float:right;
+	width:50%;
+}
+
+.backgroundListe {
+	background-color:rgba(255, 255, 255, 0.7);
+	border:2px #fff solid;
+}
+
+.board {
+	height: 40px;
+	width:100%;
+	background-color: rgba(255, 255, 255);
+	font-size: 2.5em;
+	color: black;
+	text-align: center;
+}
+.fielset{
+	 margin-left:auto;
+     margin-right:auto;
+     width: 300px;
+     padding-bottom:20px;
+     border:2px solid white;
+     background-color: rgba(255, 255, 255, 0.2);
+}
+
+.legend{
+	width:180px;
+	color:white;
+    margin-left:60px;
+    margin-right:60px;
+    text-align:center;
+    text-shadow: 3px 3px 3px black;
+}
+
+.legend2{
+	width:170px;
+	color:white;
+    margin-left:65;
+    margin-right:65;
+    text-align:center;
+    text-shadow: 3px 3px 3px black;
+}
+
+

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+  
+  <display-name>Persons</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+   
+<!--<filter>
+	<filter-name>encodingfilter</filter-name>
+	<filter-class>application.filters.EncodingFilter</filter-class>
+	<init-param>
+		<param-name>encoding</param-name>
+		<param-value>UTF-8</param-value>
+	</init-param>
+</filter>
+<filter-mapping>
+	<filter-name>encodingfilter</filter-name>
+	<url-pattern>/*</url-pattern>
+</filter-mapping>--> 
+ 
+<!-- ................................... 1ere SERVLET (personnes auteurs et abonnes) ................................... --> 
+
+  <servlet>
+    <servlet-name>Persons</servlet-name>
+    <servlet-class>fr.afpa.Persons.web.Application</servlet-class>
+  </servlet>
+  
+<!-- ................................... Mapping pour la 1ere SERVLET ................................... -->  
+
+  <servlet-mapping>
+    <servlet-name>Persons</servlet-name>  
+ 
+<!-- ACCUEIL -->
+    <url-pattern>/accueil</url-pattern>
+ 
+<!-- PERSONNES -->    
+    <url-pattern>/listePersonnes</url-pattern>
+    <url-pattern>/add</url-pattern>
+    <url-pattern>/validate</url-pattern>
+    <url-pattern>/delete</url-pattern>
+    <url-pattern>/modify</url-pattern>
+    <url-pattern>/validateModify</url-pattern>
+
+<!-- ABONNES -->         
+    <url-pattern>/listeAbonnes</url-pattern>
+    <url-pattern>/ajouterAbonne</url-pattern>
+    <url-pattern>/validerAjouterAbonne</url-pattern>
+    <url-pattern>/modifierAbonne</url-pattern>
+    <url-pattern>/validerModifierAbonne</url-pattern>
+   	<url-pattern>/effacerAbonne</url-pattern>
+   	<url-pattern>/consulterAbonne</url-pattern>
+   	<url-pattern>/retournerCopieAbonne</url-pattern>
+   
+<!-- AUTEURS -->   	
+   	<url-pattern>/listeAuteurs</url-pattern>
+    <url-pattern>/ajouterAuteur</url-pattern>
+    <url-pattern>/validerAjouterAuteur</url-pattern>
+    <url-pattern>/modifierAuteur</url-pattern>
+    <url-pattern>/validerModifierAuteur</url-pattern>
+   	<url-pattern>/effacerAuteur</url-pattern>
+   	
+  </servlet-mapping>  
+  
+<!-- ................................... 2eme SERVLET (Oeuvres et copies) ................................... -->  
+
+  <servlet>
+    <servlet-name>OeuvresCopies</servlet-name>
+    <servlet-class>fr.afpa.Persons.web.ApplicationOeuvresCopies</servlet-class>
+  </servlet>	
+
+<!-- ................................... Mapping pour la 2eme SERVLET ................................... -->   
+  <servlet-mapping>
+    <servlet-name>OeuvresCopies</servlet-name>
+    
+<!-- OEUVRES -->   	
+   	<url-pattern>/listeOeuvres</url-pattern>
+    <url-pattern>/ajouterOeuvre</url-pattern>
+    <url-pattern>/validerAjouterOeuvre</url-pattern>
+    <url-pattern>/modifierOeuvre</url-pattern>
+    <url-pattern>/validerModifierOeuvre</url-pattern>
+   	<url-pattern>/effacerOeuvre</url-pattern>
+   	<url-pattern>/consulterOeuvre</url-pattern>
+   	<url-pattern>/ajouterCopie</url-pattern>
+   	<url-pattern>/emprunterCopie</url-pattern>
+   	<url-pattern>/retournerCopie</url-pattern>
+   	<url-pattern>/supprimerCopie</url-pattern>
+   	<url-pattern>/reparerCopie</url-pattern>
+   	
+  </servlet-mapping>
+  
+<!-- ................................... 3eme SERVLET (Genres) ................................... -->  
+
+  <servlet>
+    <servlet-name>Genres</servlet-name>
+    <servlet-class>fr.afpa.Persons.web.ApplicationGenres</servlet-class>
+  </servlet>	
+
+<!-- ................................... Mapping pour la 3eme SERVLET ................................... -->   
+  <servlet-mapping>
+    <servlet-name>Genres</servlet-name>
+    
+<!-- GENRES -->   	
+   	<url-pattern>/listeGenres</url-pattern>
+    <url-pattern>/ajouterGenre</url-pattern>
+    <url-pattern>/validerAjouterGenre</url-pattern>
+    <url-pattern>/modifierGenre</url-pattern>
+    <url-pattern>/validerModifierGenre</url-pattern>
+   	<url-pattern>/effacerGenre</url-pattern>
+   	<url-pattern>/listeOeuvresParGenre</url-pattern>
+   	<url-pattern>/ajouterOeuvreAuGenre</url-pattern>
+   	<url-pattern>/validerAjouterOeuvreAuGenre</url-pattern>
+   	<url-pattern>/nbreOeuvresParGenre</url-pattern>
+   	
+  </servlet-mapping>
+  
+</web-app>

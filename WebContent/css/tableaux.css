@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+.bordureNoire {
+	border-color:black;
+}
+
+.titreTableau {
+	text-align:center;
+	color:white;
+	font-size:40;
+	text-shadow: 3px 3px 3px black;
+}
+
+.cadreTitreGris {
+	background-color:#2E2E2E;
+}
+
+.scroll {
+	height: 80%;
+    overflow: scroll;
+}
+
+.hauteurTableau {
+	max-height: 70%;
+}
+
+thead {
+  	height:50px;
+}
+
+tbody.scrollableBox {
+  	overflow-y: scroll;
+    overflow-x: hidden;
+    height: 480px;
+}
+
+.enteteFixe {
+	position: ;
+}
+
+.backgroundTableau {
+	background-color: rgba(255, 255, 255, 0.75);
+	border:2px #fff solid;
+}
