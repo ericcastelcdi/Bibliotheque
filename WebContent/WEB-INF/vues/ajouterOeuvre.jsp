@@ -61,7 +61,7 @@
 						<div class="centrer-div">
 							<INPUT name="dateOeuvre" class="input centrageInput ombre"></INPUT>
 						</div>
-					</div><br>
+					</div>
 					<br><br>
 					
 					<div class="col-lg-4 col-sm-6">
