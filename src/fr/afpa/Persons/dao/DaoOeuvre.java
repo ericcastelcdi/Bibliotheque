@@ -1,39 +1,37 @@
 package fr.afpa.Persons.dao;
 
-import java.sql.Connection;
 //import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import fr.afpa.Persons.model.Abonne;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
+
+import fr.afpa.Persons.Commun.MethodesCommunes;
 import fr.afpa.Persons.model.Auteur;
 import fr.afpa.Persons.model.Copie;
 import fr.afpa.Persons.model.Genre;
 import fr.afpa.Persons.model.Oeuvre;
-import fr.afpa.Persons.model.Personne;
 
-public class DaoOeuvre implements IDaoOeuvre {
+public class DaoOeuvre extends MethodesCommunes implements IDaoOeuvre {
 	
 // Attributs
-	// adresse du serveur de la base de donn�e
+	// adresse du serveur de la base de données
 	private String url = "jdbc:mysql://localhost:3306/bibliotheque?useSSL=false";
 	// info de connection de mon mysql (on ne doit pas normalement les mettres la)
 	private String login = "root";
 	
 	private String passwordConnection = "YD456Moj";
 	// sert a etablir la connection a la base
-	private Connection connection = null;
+	private java.sql.Connection connection = null;
 	// se charge de prendre la requete de l'executer et renvoyer le resultat
-	private Statement statement = null;
-	private Statement statement2 = null;
+	private java.sql.Statement statement = null;
+	private java.sql.Statement statement2 = null;
 	// objet qui va contenir le resultat de la requete
 	private ResultSet result = null;
 	private ResultSet result2 = null;
@@ -42,12 +40,11 @@ public class DaoOeuvre implements IDaoOeuvre {
 	int lastIdAbonne = 0;
 	int lastIdAuteur = 0;
 	
-	// Constructeur
+// Constructeur
 	public DaoOeuvre() {
 
 		init();
-	}
-	
+	}	
 	public void init() {
 		try {
 			// Chargement du driver
@@ -56,33 +53,7 @@ public class DaoOeuvre implements IDaoOeuvre {
 			e.printStackTrace();
 		}
 	}
-// methodes anexes
-	public Calendar dateEnCalendar(Date date) {    
-		
-		// formatage en calendar pour insertion dans l'objet personne
-		Calendar dateFormatee = new GregorianCalendar();
-		dateFormatee.setTime(date);
-		//System.out.println("date au format calendar " + dateFormatee);
-		
-		return dateFormatee;
-	}
-	public String dateEnStringSql(Date date) {  //("yyyy-MM-dd")  
 
-		/// reformatage de la date avant de la mettre dans une variable string
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    String dateString = dateFormat.format(date);
-	    System.out.println("date au format string " + dateString);
-
-		return dateString;
-	}
-	public String calendarEnStringSql(Calendar date) {
-		
-		Date dateDate = date.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String dateDeNaissanceString = dateFormat.format(dateDate);
-        
-		return dateDeNaissanceString;
-	}
 // copies
 	public ArrayList<Copie> obtenirToutesLesCopiesOeuvre(Oeuvre oeuvre) {
 		
@@ -197,10 +168,6 @@ public class DaoOeuvre implements IDaoOeuvre {
 		}
 		return null;
 	}	
-
-	public ArrayList<Copie> obtenirToutesLesCopiesDisponiblesOeuvre(Oeuvre oeuvre) {
-		return null;
-	}
 	public int obtenirNbreCopiesParOeuvre(Oeuvre oeuvre) {
 		try {
 			connection = DriverManager.getConnection(url, login, passwordConnection);
@@ -274,7 +241,7 @@ public class DaoOeuvre implements IDaoOeuvre {
 			
 			if (available == 1 & repairing == 0) {
 				
-				String dateSql = calendarEnStringSql(copie.getDateEmprunt());
+				String dateSql = calendarEnStringSql(copie.getDateEmprunt()); // calendarEnString est une methode de la classe mere "MethodesCommunes"
 				
 				String query2 = " update copy"
 							 + " set date_of_borrowing = '" + dateSql + "',"
@@ -415,7 +382,8 @@ public class DaoOeuvre implements IDaoOeuvre {
 			e.printStackTrace();
 		}
 	}
-	// Auteurs	
+
+// Auteurs	
 	public ArrayList<Auteur> obtenirTousLesAuteurs(){
 
 		ArrayList<Auteur> auteurs = null;
@@ -463,7 +431,7 @@ public class DaoOeuvre implements IDaoOeuvre {
 		
 		return auteurs;	
 	}
-	public Auteur obtenirAuteur(String id) {
+	public Auteur obtenirAuteur(String id){
 		try {
 			connection = DriverManager.getConnection(url, login, passwordConnection);
 			
@@ -498,6 +466,7 @@ public class DaoOeuvre implements IDaoOeuvre {
 		}	
 		
 	}
+
 // genres	
 	public ArrayList<Genre> obtenirTousLesGenres(){
 		
@@ -534,6 +503,7 @@ public class DaoOeuvre implements IDaoOeuvre {
 		
 		return genres;	
 	}
+
 // oeuvres	
 	public ArrayList<Oeuvre> obtenirToutesLesOeuvres() {
 		
@@ -562,8 +532,12 @@ public class DaoOeuvre implements IDaoOeuvre {
 				String prenomPersonne = result.getString("first_name");
 				String nomPersonne = result.getString("last_name");
 				
-				Date dateDeNaissancePersonne = result.getDate("date_of_birth");
-				Calendar dateDeNaissancePersonneFormatee = dateEnCalendar(dateDeNaissancePersonne);
+				Date dateDeNaissancePersonne = result.getDate("date_of_birth");	
+				Calendar dateDeNaissancePersonneFormatee = null;
+				if ( dateDeNaissancePersonne != null) {
+					dateDeNaissancePersonneFormatee = dateEnCalendar(dateDeNaissancePersonne);
+				}
+				
 				
 				Auteur auteur = new Auteur(idPersonne, prenomPersonne, nomPersonne, dateDeNaissancePersonneFormatee, idAuteur);
 				
@@ -580,8 +554,12 @@ public class DaoOeuvre implements IDaoOeuvre {
 				// Timestamp dateOeuvre = result.getTimestamp("book_datetime"); 	
 				// il faut aussi modifier le format d'ecriture de la date "calendar" ,
 				// dans la methode to string de la classe de l objet qui comporte la ddate 
-				Calendar dateOeuvreFormatee = new GregorianCalendar();
-				dateOeuvreFormatee.setTime(dateOeuvre);
+				Calendar dateOeuvreFormatee = null;
+				if ( dateOeuvre != null) {
+					dateOeuvreFormatee = new GregorianCalendar();
+					dateOeuvreFormatee.setTime(dateOeuvre);
+				}
+				
 				
 				String nomGenre = result.getString("book_catalog_name");
 				int nbreDeCopies =  result.getInt("nbCopy");
@@ -682,8 +660,12 @@ public class DaoOeuvre implements IDaoOeuvre {
 			// Timestamp dateOeuvre = result.getTimestamp("book_datetime"); 	
 			// il faut aussi modifier le format d'ecriture de la date "calendar" ,
 			// dans la methode to string de la classe de l objet qui comporte la ddate 
-			Calendar dateOeuvreFormatee = new GregorianCalendar();
-			dateOeuvreFormatee.setTime(dateOeuvre);
+			Calendar dateOeuvreFormatee = null;
+			if ( dateOeuvre != null) {
+				dateOeuvreFormatee = new GregorianCalendar();
+				dateOeuvreFormatee.setTime(dateOeuvre);
+			}
+			
 			
 			String nomGenre = result.getString("book_catalog_name");
 			int nbreDeCopies =  result.getInt("nbCopy");
@@ -765,6 +747,7 @@ public class DaoOeuvre implements IDaoOeuvre {
 			e.printStackTrace();
 		}
 	}
+
 
 
 }

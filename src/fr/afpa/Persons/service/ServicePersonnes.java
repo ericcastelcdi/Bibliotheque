@@ -19,78 +19,83 @@ public class ServicePersonnes implements IServicePersonnes{
 	}
 
 // PERSONNES
-	public ArrayList<Personne> getAll() {
+	public synchronized ArrayList<Personne> getAll() {
 		return dao.getAll();
 	}
 
-	public void addPerson(Personne personne) {
+	public synchronized void addPerson(Personne personne) {
 		dao.addPerson(personne);
 	}
 
-	public void deletePerson(String id) {
+	public synchronized void deletePerson(String id) {
 		dao.deletePerson(id);	
 	}
 	
-	public void modifyPerson(Personne personne) {
+	public synchronized void modifyPerson(Personne personne) {
 		dao.modifyPerson(personne);	
 	}
 
-	public Personne getPerson(String id) {
+	public synchronized Personne getPerson(String id) {
 		return dao.getPerson(id);		
 	}
 
 // ABONNES
-	public ArrayList<Abonne> obtenirTousLesAbonnes() {
+	public synchronized ArrayList<Abonne> obtenirTousLesAbonnes() {
 		 return dao.obtenirTousLesAbonnes();
 	}
 
-	public void ajouterAbonne(Abonne abonne) {
+	public synchronized void ajouterAbonne(Abonne abonne) {
 		dao.ajouterAbonne(abonne);
 	}
 	
-	public void modifierAbonne(Abonne abonne) {
+	public synchronized void modifierAbonne(Abonne abonne) {
 		dao.modifierAbonne(abonne);	
 	}
 
-	public Abonne obtenirAbonne(String id) {
+	public synchronized Abonne obtenirAbonne(String id) {
 		return dao.obtenirAbonne(id);		
 	}
 	
-	public void effacerAbonne(String idAbonne, String idPersonne) {
+	public synchronized void effacerAbonne(String idAbonne, String idPersonne) {
 		dao.effacerAbonne(idAbonne, idPersonne);
 	}
 	
-	public ArrayList<Copie> consulterAbonne(String idAbonne) {
+	public synchronized ArrayList<Copie> consulterAbonne(String idAbonne) {
 		return dao.consulterAbonne(idAbonne);
 	}
 	
-	public void retournerCopieAbonne(Copie copie) {
+	public synchronized void retournerCopieAbonne(Copie copie) {
 		dao.retournerCopieAbonne(copie);
 	}
 	
 // AUTEURS
-	public ArrayList<Auteur> obtenirTousLesAuteurs() {
+	public synchronized ArrayList<Auteur> obtenirTousLesAuteurs() {
 		 return dao.obtenirTousLesAuteurs();
 	}
 	
-	public int ajouterAuteur(Auteur auteur) {
+	public synchronized int ajouterAuteur(Auteur auteur) {
 		return dao.ajouterAuteur(auteur);
 	}
 	
-	public void modifierAuteur(Auteur auteur) {
+	public synchronized void modifierAuteur(Auteur auteur) {
 		dao.modifierAuteur(auteur);	
 	}
 	
-	public Auteur obtenirAuteur(String id) {
+	public synchronized Auteur obtenirAuteur(String id) {
 		return dao.obtenirAuteur(id);		
 	}
 
-	public void effacerAuteur(String idAuteur, String idPersonne) {
+	public synchronized void effacerAuteur(String idAuteur, String idPersonne) {
 		dao.effacerAuteur(idAuteur, idPersonne);	
 	}
 
-	public Auteur obtenirAuteurParNom(String nomAuteur) {
+	public synchronized Auteur obtenirAuteurParNom(String nomAuteur) {
 		return dao.obtenirAuteurParNom(nomAuteur);
+	}
+
+
+	public synchronized ArrayList<Oeuvre> consulterAuteur(String isbn) {
+		return dao.consulterAuteur(isbn);
 	}
 
 

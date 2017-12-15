@@ -36,8 +36,8 @@
 			<thead>
 				<tr>
 					<th scope="row">Id Auteur</th>
-					<th scope="row">Prenom</th>
 					<th scope="row">Nom</th>
+					<th scope="row">Prenom</th>
 					<th scope="row">Date de naissance</th>
 					<th scope="row">Id</th>
 					<th scope="row"></th>

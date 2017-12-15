@@ -24,7 +24,7 @@
 		<div class="container-fluid PageParDefaut">
 			<br>
 			<div class="margeHaut">
-				<a href="<c:url value="/listeAuteurs"/>"><input type="button" class="btn btn-primary boutonAGauche" name="ajoutAbonne" value="RETOUR" /></a>
+				<a href="<c:url value="/listeOeuvres"/>"><input type="button" class="btn btn-primary boutonAGauche" name="ajoutAbonne" value="RETOUR" /></a>
 				<a href="<c:url value="/accueil"/>"><input type="button" class="btn btn-success boutonADroite margeBas" name="ajoutAbonne" value="ACCUEIL" /></a><br>
 			</div>	
 				
@@ -59,7 +59,7 @@
 							<font size=5 COLOR="white">Date d'édition</font> 
 						</div>
 						<div class="centrer-div">
-							<INPUT name="dateOeuvre" class="input centrageInput ombre"></INPUT>
+							<INPUT id="dateOeuvre" value="JJ/MM/AAAA" onblur= "remplirChamp()" onfocus="viderChamp()" class="input centrageInput ombre"></INPUT>
 						</div>
 					</div>
 					<br><br>
@@ -97,7 +97,7 @@
 								<font size=5 COLOR="white">Date de naissance</font>
 							</div>
 							<div class="centrer-div"> 
-								<INPUT name="dateDeNaissance" value="JJ/MM/YYYY" class="input centrageInput"></INPUT> <br/><br/>
+								<INPUT name="dateDeNaissance" value="JJ/MM/AAAA" class="input centrageInput"></INPUT> <br/><br/>
 							</div>
 						</fieldset>
 						<br>
@@ -134,10 +134,8 @@
 						<input type="submit" name="validerAjoutOeuvre" class="btn btn-primary margeBas" value="VALIDER AJOUT OEUVRE" />
 					</div>
 		
-				</div>
-					
+				</div>			
 			</form>
-
 		</div>
 	
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" ></script>

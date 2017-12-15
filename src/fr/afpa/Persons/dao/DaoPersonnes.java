@@ -12,13 +12,14 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import fr.afpa.Persons.Commun.MethodesCommunes;
 import fr.afpa.Persons.model.Abonne;
 import fr.afpa.Persons.model.Auteur;
 import fr.afpa.Persons.model.Copie;
 import fr.afpa.Persons.model.Oeuvre;
 import fr.afpa.Persons.model.Personne;
 
-public class DaoPersonnes implements IDaoPersonnes{
+public class DaoPersonnes extends MethodesCommunes implements IDaoPersonnes{
 
 	private String url = "jdbc:mysql://localhost:3306/bibliotheque?useSSL=false";
 	private String login = "root";
@@ -38,52 +39,16 @@ public class DaoPersonnes implements IDaoPersonnes{
 	int lastIdAbonne = 0;
 	int lastIdAuteur = 0;
 	
+// Constructeur
 	public DaoPersonnes() {
 		init();
-	}
-	
+	}	
 	public void init() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
-
-// Methodes anexes
-	public Calendar dateEnCalendar(Date date) {    
-		
-		// formatage en calendar pour insertion dans l'objet personne
-		Calendar dateFormatee = new GregorianCalendar();
-		dateFormatee.setTime(date);
-		//System.out.println("date au format calendar " + dateFormatee);
-		
-		return dateFormatee;
-	}	
-	public String dateEnString(Date date) {  //("dd/MM/yyyy")  
-
-		/// reformatage de la date avant de la mettre dans une variable string
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	    String dateString = dateFormat.format(date);
-		
-		return dateString;
-	}	
-	public String calendarEnStringSql(Calendar date) {
-		
-		Date dateDate = date.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String dateDeNaissanceString = dateFormat.format(dateDate);
-        
-		return dateDeNaissanceString;
-	}
-	public String dateEnStringSql(Date date) {  //("yyyy-MM-dd")  
-
-		/// reformatage de la date avant de la mettre dans une variable string
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    String dateString = dateFormat.format(date);
-	    System.out.println("date au format string " + dateString);
-
-		return dateString;
 	}
 
 // personnes	
@@ -482,7 +447,119 @@ public class DaoPersonnes implements IDaoPersonnes{
 			e.printStackTrace();
 		}
 	}
-
+	public ArrayList<Oeuvre> consulterAuteur(String idAbonne) {
+		
+		try {
+			connection = DriverManager.getConnection(url, login, passwordConnection);
+			
+			statement = connection.createStatement();
+			
+			String query = " select *"
+						 + " from copy"
+						 + " where copy_id_subscriber = " + idAbonne 
+						 + " and copy_is_available = 0 "
+						 + " and copy_is_on_repairing = 0 ;";
+			
+			result = statement.executeQuery(query);
+			
+			ArrayList<Oeuvre> listCopies = new ArrayList<Oeuvre>();
+			
+			// tant que j'ai des resultats (copies), je les parcours et je fais ce qui suit pour chacun
+			while (result.next()) {
+				
+				// On construit l'objet Copie
+				int idCopie = result.getInt("id_copy");
+				
+				Date dateEmprunt = result.getDate("date_of_borrowing");
+					Calendar dateEmpruntFormatee = new GregorianCalendar();	
+					
+					if ( dateEmprunt != null ){	
+						dateEmpruntFormatee.setTime(dateEmprunt);
+					}else{
+						dateEmpruntFormatee = null;
+					}
+				
+				Date dateRetour = result.getDate("date_of_back");
+					Calendar dateRetourFormatee = new GregorianCalendar();	
+					if ( dateRetour != null ){							
+						dateRetourFormatee.setTime(dateRetour);
+					}else{
+						dateRetourFormatee = null;
+					}
+				
+				boolean copieEstDisponible = false;		
+					int copieEstDisponibleTinyInt = result.getInt("copy_is_available");
+						if (copieEstDisponibleTinyInt == 1){
+							copieEstDisponible = true;
+						}else{
+							copieEstDisponible = false;
+						}
+					
+				boolean copieEstEnReparation = false;	
+					int copieEstEnReparationTinyInt = result.getInt("copy_is_on_repairing");
+						if (copieEstEnReparationTinyInt == 1){
+							copieEstEnReparation = true;
+						}else{
+							copieEstEnReparation = false;
+						}
+						
+				boolean copieVientDEtreReparee = false;	
+				int copieVientDEtreRepareeTinyInt = result.getInt("copy_is_freshly_repeared");
+					if (copieVientDEtreRepareeTinyInt == 1){
+						copieVientDEtreReparee = true;
+					}else{
+						copieVientDEtreReparee = false;
+					}
+				
+				String isbnOeuvre = result.getString("copy_isbn_book");
+			
+				statement2 = connection.createStatement();
+				
+				String query2 = " select last_name, first_name "
+								+ " from subscriber, person"
+								+ " where subscriber_person_id = id_person"
+								+ " and id_subscriber = '" + idAbonne + "';";
+				
+				result2 = statement2.executeQuery(query2);
+				result2.next();
+	
+				int idAbonneInt = Integer.valueOf(idAbonne);
+				String prenomAbonne = result2.getString("last_name");
+				String nomAbonne = result2.getString("first_name");
+				
+				statement2.close();
+				
+				statement3 = connection.createStatement();
+				
+				String query3 = " select * from book"
+							  + " where isbn_book = '" + isbnOeuvre + "';";
+				
+				result3 = statement3.executeQuery(query3);
+				result3.next();
+				
+				String titreOeuvre = result3.getString("title_book");
+				String soustitreOeuvre = result3.getString("subtitle_book");
+				
+				statement3.close();
+				
+				Copie copie = new Copie (idCopie, dateEmpruntFormatee, dateRetourFormatee, copieEstDisponible, copieVientDEtreReparee,
+						copieEstEnReparation, isbnOeuvre, titreOeuvre, soustitreOeuvre, idAbonneInt , prenomAbonne, nomAbonne);
+				
+				//listCopies.add(copie);				
+			}
+			
+			statement.close();
+			connection.close();
+			
+			//return listCopies;
+			return null;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 // abonnes	
 	public ArrayList<Abonne> obtenirTousLesAbonnes() {
 		

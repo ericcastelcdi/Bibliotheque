@@ -6,8 +6,10 @@ import java.util.Date;
 
 public class Abonne extends Personne{
 	
+// attributs
 	private String idAbonne;
 
+// constructeurs
 	public Abonne(String id, String prenom, String nom, Calendar dateDeNaissance, String idAbonne) {
 		super(id, prenom, nom, dateDeNaissance);
 		this.setIdAbonne(idAbonne) ;
@@ -17,6 +19,7 @@ public class Abonne extends Personne{
 		super(id, prenom, nom, dateDeNaissance);
 	}
 	
+// methode to string
 	public String toString() {
 	
 		if (super.getDateDeNaissance() != null) {	
@@ -39,7 +42,7 @@ public class Abonne extends Personne{
 		}
 	}
 		
-	// getters et setters
+// getters et setters
 	
 	public String getIdAbonne() {
 		return idAbonne;

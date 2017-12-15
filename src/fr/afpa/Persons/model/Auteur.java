@@ -4,7 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Auteur extends Personne{
+import fr.afpa.Persons.Commun.MethodesCommunes;
+
+public class Auteur extends Personne {
 	
 	private String idAuteur;
 

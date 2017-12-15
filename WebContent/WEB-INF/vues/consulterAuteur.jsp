@@ -6,7 +6,7 @@
 <html>
 
 	<head>
-		<title>BIBLIOTHEQUE - Abonne</title>
+		<title>BIBLIOTHEQUE - Auteur</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
 		<link type="text/css" href="css/formatPage.css" rel="stylesheet" media="screen"/>
@@ -24,53 +24,44 @@
 		<div class="container-fluid PageParDefaut">
 			<br>
 			<div class="margeHaut">
-				<a href="<c:url value="/listeAbonnes"/>"><input type="button" class="btn btn-primary boutonAGauche" name="ajoutAbonne" value="RETOUR" /></a>
+				<a href="<c:url value="/listeAuteurs"/>"><input type="button" class="btn btn-primary boutonAGauche" value="RETOUR" /></a>
 				<a href="<c:url value="/accueil"/>"><input type="button" class="btn btn-success boutonADroite margeBas" name="ajoutAbonne" value="ACCUEIL" /></a><br>
 			</div>
 			
 			<div>
-				<h2 class="titreTableau margeHaut">PROFIL ABONNE</h2><BR>  
+				<h2 class="titreTableau margeHaut">INFORMATIONS AUTEUR</h2><BR>  
 			</div>
 			
 			<div class="titreTableau libelle">
-				<font size=5><c:out value="${abonne}"/></font><br>
+				<font size=5><c:out value="${auteur}"/></font><br>
 			</div><br><br>
 	
 			<div class="container-fluid">
   				<div class="row">
 					<div class="centrer-div board">
-						<font size=5 COLOR="black">EMPRUNTS EN COURS</font><br>
+						<font size=5 COLOR="black">OEUVRES</font><br>
 					</div>
 				</div>
 			</div>
 			<div>
-				<select class="ombre backgroundListe" size = 10 name="selectCopie" id="selectCopieId" style="width:100%">		
-			 		<c:forEach var="copie" items="${copies}">
+				<select class="ombre backgroundListe" size = 10 name="selectOeuvre" id="selectIsbn" style="width:100%">		
+			 		<c:forEach var="oeuvre" items="${oeuvres}">
 						<c:choose>		
-						    <c:when test="${idCopieSelectionnee != copie.idCopie}">
-			   					<option value="<c:out value="${copie.idCopie}"/>" ><c:out value="${copie}" />
+						    <c:when test="${isbnSelectionne != oeuvre.isbn}">
+			   					<option value="<c:out value="${oeuvre.isbn}"/>" ><c:out value="${oeuvre}" />
 			 				</c:when>
 			 					
 			 				<c:otherwise>
-			 					<option value="<c:out value="${copie.idCopie}"/>" selected="selected"><c:out value="${copie}" />
+			 					<option value="<c:out value="${oeuvre.isbn}"/>" selected="selected"><c:out value="${oeuvre}" />
 			 				</c:otherwise>			
 						</c:choose>	
 					</c:forEach>
 				</select>
 			</div>
 			
-			<!-- ci dessous, le formulaire qui va servir a recuperer les id copie pour effectuer le retour -->
-			<form id="retour" action="<c:url value="/retournerCopieAbonne"/>" method="GET">
-				<input id="IdCopieRetour" name="IdCopieRetour" type="hidden" value="" >
-				<input id="IdAbonne" name="IdAbonne" type="hidden" value="${abonne.idAbonne}" >
-				
-			</form>
 			<br>
 	
-			<!-- ci dessous , le bouton valider execute la fonction javascript "retournerCopie();" du javascript donc le lien est en bas de la page  -->
-			<input class="btn btn-success margeBas boutonAGauche" id = "retournerCopie" type="button" value ="RETOURNER COPIE" onclick="retournerCopie();">
-			<a href="<c:url value="/listeOeuvres"/>"><input  class="btn btn-primary margeBas boutonADroite" type="button" name="emprunterDesCopies" value="EFFECTUER EMPRUNT(S)" /></a>
-	</div>
+		</div>
 	
 		<!--lien vers le language jquery et le fichier javascript des 3 fonctions : retourner  -->
 		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>

@@ -60,6 +60,7 @@
     <url-pattern>/modifierAuteur</url-pattern>
     <url-pattern>/validerModifierAuteur</url-pattern>
    	<url-pattern>/effacerAuteur</url-pattern>
+   	<url-pattern>/consulterAuteur</url-pattern>
    	
   </servlet-mapping>  
   

@@ -36,14 +36,14 @@ img.superbg {
 
 .bienvenue {
 	color:white;
-	font-family:Edwardian Script ITC;
+	font-family:Formal Script;
 	font-size:120;
 	text-shadow: 6px 6px 2px black;
 }
 
 .bienvenue2 {
 	color:white;
-	font-family:Edwardian Script ITC;
+	font-family:Formal Script;
 	font-size:90;
 	text-shadow: 6px 6px 2px black;
 }
@@ -64,6 +64,10 @@ img.superbg {
 
 .floatDroite {
 	float:right;
+}
+
+.boutonCentre {
+	margin: 0 auto;
 }
 
 .centrer-div {
@@ -128,10 +132,10 @@ img.superbg {
 .board {
 	height: 40px;
 	width:100%;
-	background-color: rgba(255, 255, 255);
 	font-size: 2.5em;
 	color: black;
 	text-align: center;
+	background-color: rgba(255, 255, 255, 0.85);
 }
 .fielset{
 	 margin-left:auto;
@@ -139,7 +143,7 @@ img.superbg {
      width: 300px;
      padding-bottom:20px;
      border:2px solid white;
-     background-color: rgba(255, 255, 255, 0.2);
+     background-color: rgba(255, 255, 255, 0.15);
 }
 
 .legend{
@@ -160,4 +164,10 @@ img.superbg {
     text-shadow: 3px 3px 3px black;
 }
 
+.margeGauche {
+	margin-left:15px;
+}
+.margeDroite {
+	margin-right:15px;
 
+}

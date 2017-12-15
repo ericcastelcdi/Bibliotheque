@@ -19,67 +19,64 @@ public class ServiceOeuvre implements IServiceOeuvre {
 		this.dao = dao;
 	}
 	
-	public ArrayList<Oeuvre> obtenirToutesLesOeuvres(){
+// methodes
+	public synchronized ArrayList<Oeuvre> obtenirToutesLesOeuvres(){
 		return dao.obtenirToutesLesOeuvres();	
 	}
 	
-	public ArrayList<Copie> obtenirToutesLesCopiesDisponiblesOeuvre(Oeuvre oeuvre) {
-		return dao.obtenirToutesLesCopiesDisponiblesOeuvre(oeuvre);
-	}
-	
-	public ArrayList<Copie> obtenirToutesLesCopiesOeuvre(Oeuvre oeuvre) {
+	public synchronized ArrayList<Copie> obtenirToutesLesCopiesOeuvre(Oeuvre oeuvre) {
 		return dao.obtenirToutesLesCopiesOeuvre(oeuvre);
 	}
 
-	public int obtenirNbreCopiesParOeuvre(Oeuvre oeuvre) {
+	public synchronized int obtenirNbreCopiesParOeuvre(Oeuvre oeuvre) {
 		return dao.obtenirNbreCopiesParOeuvre(oeuvre);
 	}
 
-	public void creerOeuvre(Oeuvre oeuvre) {
+	public synchronized void creerOeuvre(Oeuvre oeuvre) {
 		dao.creerOeuvre(oeuvre);		
 	}
 
-	public Oeuvre obtenirOeuvre(String isbn) {
+	public synchronized Oeuvre obtenirOeuvre(String isbn) {
 		return dao.obtenirOeuvre(isbn);
 	}
 
-	public Auteur obtenirAuteur(String idAuteur) {		
+	public synchronized Auteur obtenirAuteur(String idAuteur) {		
 		return dao.obtenirAuteur(idAuteur);
 	}
 
-	public ArrayList<Auteur> obtenirTousLesAuteurs() {
+	public synchronized ArrayList<Auteur> obtenirTousLesAuteurs() {
 		return dao.obtenirTousLesAuteurs();
 	}
 
-	public ArrayList<Genre> obtenirTousLesGenres() {
+	public synchronized ArrayList<Genre> obtenirTousLesGenres() {
 		return dao.obtenirTousLesGenres();
 	}
 
-	public void effacerOeuvre(String isbn) {
+	public synchronized void effacerOeuvre(String isbn) {
 		dao.effacerOeuvre(isbn);
 	}
 
-	public void modifierOeuvre(Oeuvre oeuvre) {
+	public synchronized void modifierOeuvre(Oeuvre oeuvre) {
 		dao.modifierOeuvre(oeuvre);	
 	}
 
-	public void ajouterCopie(String isbn) {
+	public synchronized void ajouterCopie(String isbn) {
 		dao.ajouterCopie(isbn);
 	}
 
-	public void emprunterCopie(Copie copie) {
+	public synchronized void emprunterCopie(Copie copie) {
 		dao.emprunterCopie(copie);	
 	}
 
-	public void retournerCopie(Copie copie) {
+	public synchronized void retournerCopie(Copie copie) {
 		dao.retournerCopie(copie);
 	}
 
-	public void reparerCopie(Copie copie) {
+	public synchronized void reparerCopie(Copie copie) {
 		dao.reparerCopie(copie);
 	}
 
-	public void supprimerCopie(int IdCopie) {
+	public synchronized void supprimerCopie(int IdCopie) {
 		dao.supprimerCopie(IdCopie);
 	}
 

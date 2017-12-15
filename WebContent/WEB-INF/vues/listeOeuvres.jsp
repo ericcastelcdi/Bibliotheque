@@ -21,13 +21,10 @@
 		<img src="images/BIBLIOTHEQUE 2.4.jpg" class="superbg" >
 	</div>
 	
-	<div class="container-fluid PageParDefaut">
-		<br>
-			<div>
-				<h2 class="titreTableau margeHaut">OEUVRES</h2>
-		</div>
-	
-		<br>
+	<div class="container-fluid PageParDefaut"><br>
+		<div>
+			<h2 class="titreTableau margeHaut">OEUVRES</h2>
+		</div><br>
 		
 		<div class="table-responsive hauteurTableau backgroundTableau ombre">
 			<table class="table table-striped " >

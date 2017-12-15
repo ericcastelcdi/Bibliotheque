@@ -25,18 +25,18 @@
 			      <li class="nav-item">
 			      <a class="nav-link" href="<c:url value="/listeGenres"/>">Genres</a>
 			      </li>
-			      <li class="nav-item">
-			      	<a class="nav-link" href="<c:url value="/listeAbonnes"/>">Abonnés</a>
+			       <li class="nav-item">
+			        <a class="nav-link" href="<c:url value="/listeOeuvres"/>">Oeuvres</a>
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" href="<c:url value="/listeAuteurs"/>">Auteurs</a>
 			      </li>
-			       <li class="nav-item">
-			        <a class="nav-link" href="<c:url value="/listeOeuvres"/>">Oeuvres</a>
+			      <li class="nav-item">
+			      	<a class="nav-link" href="<c:url value="/listeAbonnes"/>">Abonnés</a>
 			      </li>
-			       <li class="nav-item">
+			      <!--  <li class="nav-item">
 			        <a class="nav-link" href="<c:url value="/listePersonnes"/>">Personnes</a>
-			      </li>
+			      </li>-->
 			      
 			    </ul>
 			    
