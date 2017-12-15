@@ -57,6 +57,7 @@ public class Copie {
 		this.copieVientDEtreReparee = copieVientDEtreReparee;
 	}	
 
+// Methode to string
 	public String toString(){
 		// dateFormatSymbols sert a obtenir par la suite année , jour , mois etc... de manière séparée (par exemple .get(Calendar.YEAR))
 		DateFormatSymbols symbols = new DateFormatSymbols(Locale.FRANCE);
@@ -171,8 +172,7 @@ public class Copie {
 		}	
 	}
 	
-	// getters et setters
-
+// getters et setters
 	public int getIdCopie() {
 		return idCopie;
 	}
@@ -180,14 +180,12 @@ public class Copie {
 		this.idCopie = idCopie;
 	}
 
-	
 	public Calendar getDateEmprunt() {
 		return dateEmprunt;
 	}
 	public void setDateEmprunt(Calendar dateEmprunt) {
 		this.dateEmprunt = dateEmprunt;
 	}
-	
 	
 	public Calendar getDateRetour() {
 		return dateRetour;
@@ -196,7 +194,6 @@ public class Copie {
 		this.dateRetour = dateRetour;
 	}
 
-	
 	public boolean isCopieEstDisponible() {
 		return copieEstDisponible;
 	}
@@ -204,14 +201,12 @@ public class Copie {
 		this.copieEstDisponible = copieEstDisponible;
 	}
 
-	
 	public boolean isCopieEstEnReparation() {
 		return copieEstEnReparation;
 	}
 	public void setCopieEstEnReparation(boolean copieEstEnReparation) {
 		this.copieEstEnReparation = copieEstEnReparation;
 	}
-
 	
 	public String getIsbnOeuvre() {
 		return isbnOeuvre;
@@ -219,7 +214,6 @@ public class Copie {
 	public void setIsbnOeuvre(String isbnOeuvre) {
 		this.isbnOeuvre = isbnOeuvre;
 	}
-
 	
 	public int getIdAbonne() {
 		return idAbonne;

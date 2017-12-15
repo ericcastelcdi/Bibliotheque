@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import fr.afpa.Persons.model.Abonne;
 import fr.afpa.Persons.model.Auteur;
 import fr.afpa.Persons.model.Copie;
+import fr.afpa.Persons.model.Oeuvre;
 import fr.afpa.Persons.model.Personne;
 
 public interface IServicePersonnes {
@@ -46,6 +47,8 @@ public interface IServicePersonnes {
 	public Auteur obtenirAuteurParNom(String nomAuteur);
 	
 	public void effacerAuteur(String idAuteur, String idPersonne);
+
+	public ArrayList<Oeuvre> consulterAuteur(String isbn);
 	
 
 }

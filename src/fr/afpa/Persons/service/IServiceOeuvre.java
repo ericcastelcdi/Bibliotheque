@@ -10,7 +10,6 @@ import fr.afpa.Persons.model.Oeuvre;
 
 public interface IServiceOeuvre {
 
-	public ArrayList<Copie> obtenirToutesLesCopiesDisponiblesOeuvre(Oeuvre oeuvre);
 	public ArrayList<Copie> obtenirToutesLesCopiesOeuvre(Oeuvre oeuvre);
 	public int obtenirNbreCopiesParOeuvre(Oeuvre oeuvre);
 	public void ajouterCopie(String isbn);	

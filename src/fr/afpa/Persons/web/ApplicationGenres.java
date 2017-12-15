@@ -85,14 +85,14 @@ public class ApplicationGenres extends HttpServlet {
 		doGet(request, response);
 	}
 
-	// ACCUEIL
+// ACCUEIL
 	private void accueilBibliotheque(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/accueil.jsp").forward(request, response);
 	}
 
-	// GENRES
+// GENRES
 	private void listeGenres(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		ArrayList<Genre> genres = new ArrayList<Genre>();
@@ -186,9 +186,9 @@ public class ApplicationGenres extends HttpServlet {
 		
 		String nomGenre = request.getParameter("nomGenre");
 		
-		int nbreOeuvresParGenre = service.obtenirNbreOeuvresParGenre(nomGenre);
+			int nbreOeuvresParGenre = service.obtenirNbreOeuvresParGenre(nomGenre);
 		
-		request.setAttribute("nbreOeuvres", nbreOeuvresParGenre);
+			request.setAttribute("nbreOeuvres", nbreOeuvresParGenre);
 		
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/listeGenres.jsp").forward(request, response);
 		
@@ -201,10 +201,12 @@ public class ApplicationGenres extends HttpServlet {
 			oeuvres = service.obtenirToutesLesOeuvres();
 	
 			request.setAttribute("oeuvres", oeuvres);  
+			
 		
 		String nomGenre = request.getParameter("nomGenre");
 		
 			request.setAttribute("nomGenre", nomGenre);
+			
 		
 		request.getSession().setAttribute("currentUrl", "ajouterOeuvreAuGenre");
 
@@ -215,23 +217,22 @@ public class ApplicationGenres extends HttpServlet {
 		
 		// on recupere la concatenation des isbns des oeuvres cochés envoyées par le formulaire de la page "ajout oeuvre au genre"
 		String concatenationisbn = request.getParameter("concatenationisbn");
-			System.out.println(concatenationisbn);
+		System.out.println(" concatenation = " + concatenationisbn);
+		System.out.println("entré dans le if de validerAjouterOeuvreAuGenre()");
 		// on enleve le premier slash de la string et on la met dans une autre string
 		String concatNetoyee = concatenationisbn.substring(1,concatenationisbn.length());
-			System.out.println(concatNetoyee);
+		System.out.println(concatNetoyee);
 		// on splite la nouvelle string , en enlevant les ";" pour avoir un tableau d'isbn 
 		String[] TabIsbn = concatNetoyee.split(";");
-	
 		// On recupere le nom du genre
-		String nomGenre = request.getParameter("nomGenre");
+		String nomGenre = request.getParameter("nomGenre");	
 		
 		// on envoi au service
 		service.ajouterOeuvreAuGenre(TabIsbn, nomGenre);
 		
 		// on revient ensuite a la page qui etait avant le clic sur "ajout oeuvres au genre" en redirigeant a la bonne url
 		response.sendRedirect("/Persons/listeOeuvresParGenre?nomGenre=" + nomGenre);
-
+		
 	}
-	
 	
 }

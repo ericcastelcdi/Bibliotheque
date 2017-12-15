@@ -5,20 +5,17 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import fr.afpa.Persons.model.Abonne;
+import fr.afpa.Persons.Commun.MethodesCommunes;
 import fr.afpa.Persons.model.Auteur;
 import fr.afpa.Persons.model.Genre;
 import fr.afpa.Persons.model.Oeuvre;
-import fr.afpa.Persons.model.Personne;
 
-public class DaoGenre implements IDaoGenre{
+public class DaoGenre extends MethodesCommunes implements IDaoGenre{
 
 	private String url = "jdbc:mysql://localhost:3306/bibliotheque?useSSL=false";
 	private String login = "root";
@@ -32,51 +29,16 @@ public class DaoGenre implements IDaoGenre{
 	private ResultSet result = null;	
 	private ResultSet result2 = null;
 	
+// Constructeur
 	public DaoGenre() {
 		init();
 	}
-	
 	public void init() {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
-// methiodes anexes
-	public Calendar dateEnCalendar(Date date) {    
-		
-		// formatage en calendar pour insertion dans l'objet personne
-		Calendar dateFormatee = new GregorianCalendar();
-		dateFormatee.setTime(date);
-		//System.out.println("date au format calendar " + dateFormatee);
-		
-		return dateFormatee;
-	}	
-	public String dateEnString(Date date) {  //("dd/MM/yyyy")  
-
-		/// reformatage de la date avant de la mettre dans une variable string
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-	    String dateString = dateFormat.format(date);
-		
-		return dateString;
-	}	
-	public String calendarEnStringSql(Calendar date) {
-		
-		Date dateDate = date.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String dateDeNaissanceString = dateFormat.format(dateDate);
-        
-		return dateDeNaissanceString;
-	}
-	public String dateEnStringSql(Date date) {  //("yyyy-MM-dd")  
-
-		/// reformatage de la date avant de la mettre dans une variable string
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-	    String dateString = dateFormat.format(date);
-	    System.out.println("date au format string " + dateString);
-
-		return dateString;
 	}
 
 // genres
@@ -222,7 +184,7 @@ public class DaoGenre implements IDaoGenre{
 		}		
 	}
 
-// oeuvres du genre
+// oeuvres du genre (ou pas ^^)
 	public ArrayList<Oeuvre> obtenirToutesLesOeuvresParGenre(String nomGenre){
 		
 		try {
@@ -242,7 +204,7 @@ public class DaoGenre implements IDaoGenre{
 			
 			ArrayList<Oeuvre> listeOeuvres = new ArrayList<Oeuvre>();
 			
-			// tant que j'ai des resultats (oeuvres), je les parcours et je fais ce qui suit pour chacun
+			// tant que j'ai des resultats (oeuvres), je les parcours et je fais ce qui suit ( dans le while) pour chacun
 			while (result.next()) {
 				
 				// On construit l'objet Auteur
@@ -252,11 +214,14 @@ public class DaoGenre implements IDaoGenre{
 				String nomPersonne = result.getString("last_name");
 				
 				Date dateDeNaissancePersonne = result.getDate("date_of_birth");
-				Calendar dateDeNaissancePersonneFormatee = dateEnCalendar(dateDeNaissancePersonne);
+				Calendar dateDeNaissancePersonneFormatee = null;
+				if (dateDeNaissancePersonne != null) {
+					dateDeNaissancePersonneFormatee = super.dateEnCalendar(dateDeNaissancePersonne);
+				}
 				
 				Auteur auteur = new Auteur(idPersonne, prenomPersonne, nomPersonne, dateDeNaissancePersonneFormatee, idAuteur);
 				
-				System.out.println("auteur : "+ prenomPersonne + " " + nomPersonne);
+				System.out.println("auteur : " + prenomPersonne + " " + nomPersonne);
 				// On construit l'objet Oeuvre
 				String isbnOeuvre = result.getString("isbn_book");
 				String titreOeuvre = result.getString("title_book");
@@ -268,9 +233,13 @@ public class DaoGenre implements IDaoGenre{
 				// il suffi de rajouter comme valeur dans sql hh::m::ss � la suite de la date yyy-MM-dd
 				// Timestamp dateOeuvre = result.getTimestamp("book_datetime"); 	
 				// il faut aussi modifier le format d'ecriture de la date "calendar" ,
-				// dans la methode to string de la classe de l objet qui comporte la ddate 
+				// dans la methode to string de la classe de l objet qui comporte la date 
 				Calendar dateOeuvreFormatee = new GregorianCalendar();
-				dateOeuvreFormatee.setTime(dateOeuvre);
+				if (dateOeuvre != null) {
+					dateOeuvreFormatee.setTime(dateOeuvre);
+				}else {
+					dateOeuvreFormatee = null;
+				}
 			
 				int nbreDeCopies =  result.getInt("nbCopy");
 							
@@ -303,7 +272,6 @@ public class DaoGenre implements IDaoGenre{
 			return null;
 		}
 	}
-	
 	public ArrayList<Oeuvre> obtenirToutesLesOeuvres() {
 		
 		try {
@@ -332,7 +300,10 @@ public class DaoGenre implements IDaoGenre{
 				String nomPersonne = result.getString("last_name");
 				
 				Date dateDeNaissancePersonne = result.getDate("date_of_birth");
-				Calendar dateDeNaissancePersonneFormatee = dateEnCalendar(dateDeNaissancePersonne);
+				Calendar dateDeNaissancePersonneFormatee = null;
+				if (dateDeNaissancePersonne != null) {
+					dateDeNaissancePersonneFormatee = super.dateEnCalendar(dateDeNaissancePersonne);
+				}
 				
 				Auteur auteur = new Auteur(idPersonne, prenomPersonne, nomPersonne, dateDeNaissancePersonneFormatee, idAuteur);
 				
@@ -348,9 +319,14 @@ public class DaoGenre implements IDaoGenre{
 				// il suffi de rajouter comme valeur dans sql hh::m::ss � la suite de la date yyy-MM-dd
 				// Timestamp dateOeuvre = result.getTimestamp("book_datetime"); 	
 				// il faut aussi modifier le format d'ecriture de la date "calendar" ,
-				// dans la methode to string de la classe de l objet qui comporte la ddate 
+				// dans la methode to string de la classe de l objet qui comporte la date 
 				Calendar dateOeuvreFormatee = new GregorianCalendar();
-				dateOeuvreFormatee.setTime(dateOeuvre);
+				if (dateOeuvre != null) {
+					dateOeuvreFormatee = new GregorianCalendar();
+					dateOeuvreFormatee.setTime(dateOeuvre);
+				}else {
+					dateOeuvreFormatee = null;
+				}
 				
 				String nomGenre = result.getString("book_catalog_name");
 				int nbreDeCopies =  result.getInt("nbCopy");
@@ -384,7 +360,6 @@ public class DaoGenre implements IDaoGenre{
 			return null;
 		}	
 	}
-
 	public void ajouterOeuvreAuGenre(String[] TabIsbn, String nomGenre) {
 		
 		System.out.println("nom du genre avant : " + nomGenre );
@@ -412,8 +387,6 @@ public class DaoGenre implements IDaoGenre{
 		}
 		
 	}
-
-
 	public int obtenirNbreOeuvresParGenre(String nomGenre) {
 
 		try {

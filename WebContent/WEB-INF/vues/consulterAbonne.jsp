@@ -24,20 +24,21 @@
 		<div class="container-fluid PageParDefaut">
 			<br>
 			<div class="margeHaut">
-				<a href="<c:url value="/listeAbonne"/>"><input type="button" class="btn btn-primary boutonAGauche" name="ajoutAbonne" value="RETOUR" /></a>
+				<a href="<c:url value="/listeAbonnes"/>"><input type="button" class="btn btn-primary boutonAGauche" name="ajoutAbonne" value="RETOUR" /></a>
 				<a href="<c:url value="/accueil"/>"><input type="button" class="btn btn-success boutonADroite margeBas" name="ajoutAbonne" value="ACCUEIL" /></a><br>
 			</div>
 			
 			<div>
 				<h2 class="titreTableau margeHaut">PROFIL ABONNE</h2><BR>  
 			</div>
+			
 			<div class="titreTableau libelle">
 				<font size=5><c:out value="${abonne}"/></font><br>
 			</div><br><br>
 	
 			<div class="container-fluid">
   				<div class="row">
-					<div class="board centrer-div">
+					<div class="centrer-div board">
 						<font size=5 COLOR="black">EMPRUNTS EN COURS</font><br>
 					</div>
 				</div>

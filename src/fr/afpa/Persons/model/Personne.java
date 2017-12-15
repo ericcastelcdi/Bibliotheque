@@ -4,15 +4,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Personne {
+import fr.afpa.Persons.Commun.MethodesCommunes;
 
-	
+public class Personne extends MethodesCommunes {
+
+// Attributs
 	private String id ;
 	private String prenom;
 	private String nom;
 	private Calendar dateDeNaissance ;
 	
-
+// Constructeurs
 	public Personne(String id, String prenom, String nom, Calendar dateDeNaissance) {
 		this.id = id;
 		this.prenom = prenom;
@@ -20,27 +22,27 @@ public class Personne {
 		this.dateDeNaissance = dateDeNaissance;
 
 	}
-	
 	public Personne(String prenom, String nom, Calendar dateDeNaissance) {
 		this.prenom = prenom;
 		this.nom = nom;
 		this.dateDeNaissance = dateDeNaissance;
 		
 	}
-			
+
+// Methode to string
 	public String toString() {
 		return "methode toString a definir dans la classe de l'objet";
 		
 	}
 
+// getters et setters
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
+		
 	public String getPrenom() {
 		return prenom;
 	}
@@ -48,14 +50,12 @@ public class Personne {
 		this.prenom = prenom;
 	}
 
-	
 	public String getNom() {
 		return nom;
 	}
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-
 
 	public Calendar getDateDeNaissance() {
 		return dateDeNaissance;

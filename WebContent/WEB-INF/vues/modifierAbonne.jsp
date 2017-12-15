@@ -59,7 +59,7 @@
 					<INPUT class="input centrageInput ombre" name="nom" value="${abonne.nom}"></INPUT> <br />
 				</div>
 				<div class="titreTableau libelle">
-					<font size=5 COLOR="white">Date de naissance</font>
+					<font size=5 COLOR="white">Date de naissance (JJ/MM/AAAA)</font>
 				</div>
 				<div class="centrer-div">
 					<INPUT class="input centrageInput ombre" name="dateDeNaissance" value = <fmt:formatDate value="${abonne.dateDeNaissance.time}" pattern="dd/MM/yyyy"/> ></INPUT><br />
@@ -67,7 +67,7 @@
 				<br>
 				
 				<div class="centrer-div titreTableau"><br/>
-					<input type="submit" class="btn btn-primary margeBas" value="Valider" />
+					<input type="submit" class="btn btn-primary margeBas" value="ENREGISTRER MODIFICATIONS" />
 				</div>
 		
 			</form>

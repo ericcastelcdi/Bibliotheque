@@ -34,13 +34,13 @@
 			<form method="post" action="<c:url value="/validerAjouterAuteur"/>">
 				<br><br>
 				<div class="titreTableau libelle">
-					<font size=5 COLOR="white">Prenom</font><br>
+					<font size=5 COLOR="white">Nom</font><br>
 				</div> 	
 				<div class="centrer-div">
 					<INPUT name="prenom" value="" class="input centrageInput ombre"></INPUT>
 				</div>
 				<div class="titreTableau libelle">
-					<font size=5 COLOR="white">Nom</font><br>
+					<font size=5 COLOR="white">Prenom</font><br>
 				</div>
 				<div class="centrer-div">
 					<INPUT name="nom" value="" class="input centrageInput ombre"></INPUT>

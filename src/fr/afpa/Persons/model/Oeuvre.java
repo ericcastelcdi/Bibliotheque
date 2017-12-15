@@ -59,15 +59,14 @@ public class Oeuvre {
 			messageCopiesDisponibles = nbreDeCopiesDisponibles + " " + " copies disponibles";
 		}
 		
-		String descriptionOeuvre = "  " + titreOeuvre.toUpperCase() + " - " +  sousTitreOeuvre + " ( " + auteur.getPrenom() + " " 
-									+ auteur.getNom().toUpperCase() + " / Genre : "
+		String descriptionOeuvre = "  " + titreOeuvre.toUpperCase() + " - " +  sousTitreOeuvre + " ( " + auteur.getNom() + " " 
+									+ auteur.getPrenom().toUpperCase()  + " / Genre : "
 									+ nomDuGenre.toString() + " ) - " + messageCopiesDisponibles + " - ISBN " + isbn;
 		
 		return descriptionOeuvre;	
 	}
 	
 // getters et setters
-
 	public String getIsbn() {
 		return isbn;
 	}

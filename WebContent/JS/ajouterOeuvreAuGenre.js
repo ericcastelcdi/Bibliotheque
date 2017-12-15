@@ -9,11 +9,18 @@ function check() {
 		// on recupere la value de la premiere colone apres la case (si elle est cochée)
 		txt += ';' + ($(this).parent().next('td').text());
 	});
-	//alert(txt);// alerte pour verifier si besoin
+	// alert(txt);// alerte pour verifier si besoin
 	
 	// on met les isbn concaténées dans un formulaire qui contient un input "hidden"
 	$("#concatenationisbn").val(txt);
 	
-	// puis on soumet le formulaire
-	$("#concat").submit();
+	// si rien n'est selectionné, rien ne sera concaténé et donc on ne veut pas changer de page et afficher une alerte
+	if (txt === ""){
+		alert("veuillez selectionner something")
+	}else{
+		// puis on soumet le formulaire
+		$("#concat").submit();
+	}
+	
+
 }

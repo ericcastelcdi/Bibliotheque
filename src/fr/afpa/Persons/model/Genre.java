@@ -24,11 +24,8 @@ public class Genre {
 		this.indexGenre = indexGenre;
 		this.nbreOeuvres = nbreOeuvres;
 	}	
-	
-	// Methode to String
-	
-	// getters et setters
 
+// getters et setters
 	public String getNomGenre() {
 		return nomGenre;
 	}
@@ -42,12 +39,10 @@ public class Genre {
 	public void setIndexGenre(int indexGenre) {
 		this.indexGenre = indexGenre;
 	}
-
 	
 	public int getNbreOeuvres() {
 		return nbreOeuvres;
 	}
-
 	public void setNbreOeuvres(int nbreOeuvres) {
 		this.nbreOeuvres = nbreOeuvres;
 	}

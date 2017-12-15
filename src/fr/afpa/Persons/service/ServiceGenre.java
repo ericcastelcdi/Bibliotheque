@@ -18,39 +18,42 @@ public class ServiceGenre implements IServiceGenre{
 		this.dao = dao;
 	}
 
-	public ArrayList<Genre> obtenirTousLesGenres(){
+// methodes
+	
+	// synchronized sert à eviter les erreurs dues à des executions de plus utilisateurs en meme temps et qui donc vont interroger la base de donnée en meme temps
+	public synchronized ArrayList<Genre> obtenirTousLesGenres(){
 		return dao.obtenirTousLesGenres();
 	}
 	
-	public void ajouterGenre(Genre genre) {
+	public synchronized void ajouterGenre(Genre genre) {
 		dao.ajouterGenre(genre);
 	}
 	
-	public void modifierGenre(Genre genre, String nomGenre) {
+	public synchronized void modifierGenre(Genre genre, String nomGenre) {
 		dao.modifierGenre(genre, nomGenre);
 	}
 	
-	public Genre obtenirGenre(String nomGenre) {
+	public synchronized Genre obtenirGenre(String nomGenre) {
 		return dao.obtenirGenre(nomGenre);
 	}
 	
-	public void effacerGenre(String nomGenre) {
+	public synchronized void effacerGenre(String nomGenre) {
 		dao.effacerGenre(nomGenre);
 	}
 
-	public ArrayList<Oeuvre> obtenirToutesLesOeuvresParGenre(String nomGenre) {
+	public synchronized ArrayList<Oeuvre> obtenirToutesLesOeuvresParGenre(String nomGenre) {
 		return dao.obtenirToutesLesOeuvresParGenre(nomGenre);
 	}
 	
-	public ArrayList<Oeuvre> obtenirToutesLesOeuvres(){
+	public synchronized ArrayList<Oeuvre> obtenirToutesLesOeuvres(){
 		return dao.obtenirToutesLesOeuvres();
 	}
 
-	public void ajouterOeuvreAuGenre(String[] TabIsbn, String nomGenre) {
+	public synchronized void ajouterOeuvreAuGenre(String[] TabIsbn, String nomGenre) {
 		dao.ajouterOeuvreAuGenre(TabIsbn, nomGenre);
 	}
 
-	public int obtenirNbreOeuvresParGenre(String nomGenre) {
+	public synchronized int obtenirNbreOeuvresParGenre(String nomGenre) {
 		return dao.obtenirNbreOeuvresParGenre(nomGenre);
 	}
 

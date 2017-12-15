@@ -40,3 +40,13 @@ $(document).ready(function(){
     }); 
  
 }); 
+
+function viderChamp(){
+	dateOeuvre.value="";
+	dateOeuvre.style.Color = "black";
+}
+
+function remplirChamp(){
+	dateOeuvre.value="JJ/MM/AAAA";
+	dateOeuvre.style.Color = "grey";
+}

@@ -103,10 +103,12 @@ public class Application extends HttpServlet {
 		} else if (action.equals("/effacerAuteur")) {
 			effacerAuteur(request, response);
 
+		} else if (action.equals("/consulterAuteur")) {
+			consulterAuteur(request, response);
+
 		} 
 
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		doGet(request, response);
@@ -144,7 +146,6 @@ public class Application extends HttpServlet {
 
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/listeAuteurs.jsp").forward(request, response);
 	}
-
 	private void ajouterAuteur(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		//ArrayList<Personne> personnes = new ArrayList<Personne>();
@@ -161,7 +162,6 @@ public class Application extends HttpServlet {
 
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/ajouterAuteur.jsp").forward(request, response);
 	}
-
 	private void validerAjouterAuteur(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// On recupere les parametres saisis de la page
@@ -200,7 +200,6 @@ public class Application extends HttpServlet {
 			System.out.println(e.getMessage());
 		}
 	}
-
 	private void modifierAuteur(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -213,7 +212,6 @@ public class Application extends HttpServlet {
 
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/modifierAuteur.jsp").forward(request, response);
 	}
-
 	private void validerModifierAuteur(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -242,7 +240,6 @@ public class Application extends HttpServlet {
 		listeAuteurs(request, response);
 
 	}
-
 	private void effacerAuteur(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -254,7 +251,23 @@ public class Application extends HttpServlet {
 		// reaffichage de la page liste apr�s ajout
 		listeAuteurs(request, response);
 	}
+	private void consulterAuteur(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String idAuteur = request.getParameter("idAuteur");
 
+		//ArrayList<Oeuvre> oeuvres = serviceO.obtenirToutesLesOeuvres();
+	
+		//if (oeuvres != null) {
+			//request.setAttribute("oeuvres", oeuvres);
+		//}
+		
+		Auteur auteur = service.obtenirAuteur(idAuteur);
+		
+		request.setAttribute("auteur", auteur);
+		
+		getServletContext().getRequestDispatcher("/WEB-INF/vues/consulterAuteur.jsp").forward(request, response);
+	}	
+	
 // ABONNES
 	private void listeAbonnes(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -267,7 +280,6 @@ public class Application extends HttpServlet {
 
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/listeAbonnes.jsp").forward(request, response);
 	}
-
 	private void ajouterAbonne(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -279,7 +291,6 @@ public class Application extends HttpServlet {
 
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/ajouterAbonne.jsp").forward(request, response);
 	}
-
 	private void validerAjouterAbonne(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -309,7 +320,6 @@ public class Application extends HttpServlet {
 		// reaffichage de la page liste apr�s ajout
 		listeAbonnes(request, response);
 	}
-
 	private void modifierAbonne(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -323,7 +333,6 @@ public class Application extends HttpServlet {
 
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/modifierAbonne.jsp").forward(request, response);
 	}
-
 	private void validerModifierAbonne(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -353,7 +362,6 @@ public class Application extends HttpServlet {
 		listeAbonnes(request, response);
 
 	}
-
 	private void effacerAbonne(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -365,7 +373,6 @@ public class Application extends HttpServlet {
 		// reaffichage de la page liste apr�s ajout
 		listeAbonnes(request, response);
 	}
-
 	private void consulterAbonne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String idAbonne = request.getParameter("idAbonne");
@@ -383,8 +390,7 @@ public class Application extends HttpServlet {
 		request.setAttribute("abonne", abonne);
 		
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/consulterAbonne.jsp").forward(request, response);
-	}
-	
+	}	
 	private void retournerCopieAbonne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		System.out.println("");
@@ -420,12 +426,10 @@ public class Application extends HttpServlet {
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/listePersonnes.jsp").forward(request, response);
 
 	}
-
 	private void doAdd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/add.jsp").forward(request, response);
 	}
-
 	private void addPerson(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -453,7 +457,6 @@ public class Application extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
 	private void deletePerson(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -464,7 +467,6 @@ public class Application extends HttpServlet {
 		// reaffichage de la page liste apr�s ajout
 		listPersons(request, response);
 	}
-
 	private void modifyPerson(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -478,7 +480,6 @@ public class Application extends HttpServlet {
 
 		getServletContext().getRequestDispatcher("/WEB-INF/vues/modify.jsp").forward(request, response);
 	}
-
 	private void validateModifyPerson(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
