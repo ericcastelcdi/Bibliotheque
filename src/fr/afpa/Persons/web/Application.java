@@ -255,11 +255,11 @@ public class Application extends HttpServlet {
 		
 		String idAuteur = request.getParameter("idAuteur");
 
-		//ArrayList<Oeuvre> oeuvres = serviceO.obtenirToutesLesOeuvres();
+		ArrayList<Oeuvre> oeuvres = service.consulterAuteur(idAuteur);
 	
-		//if (oeuvres != null) {
-			//request.setAttribute("oeuvres", oeuvres);
-		//}
+		if (oeuvres != null) {
+			request.setAttribute("oeuvres", oeuvres);
+		}
 		
 		Auteur auteur = service.obtenirAuteur(idAuteur);
 		

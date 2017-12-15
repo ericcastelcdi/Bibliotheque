@@ -447,112 +447,87 @@ public class DaoPersonnes extends MethodesCommunes implements IDaoPersonnes{
 			e.printStackTrace();
 		}
 	}
-	public ArrayList<Oeuvre> consulterAuteur(String idAbonne) {
+	public ArrayList<Oeuvre> consulterAuteur(String idAuteur) {
 		
 		try {
 			connection = DriverManager.getConnection(url, login, passwordConnection);
 			
 			statement = connection.createStatement();
 			
-			String query = " select *"
-						 + " from copy"
-						 + " where copy_id_subscriber = " + idAbonne 
-						 + " and copy_is_available = 0 "
-						 + " and copy_is_on_repairing = 0 ;";
-			
+			String query = "select book.*, last_name, first_name, count(id_copy) as nbCopy ,id_person, date_of_birth"
+							+ " from author, catalog, person, book left join copy on isbn_book = copy_isbn_book"
+							+ " where id_author = " + idAuteur
+							+ " and id_person = author_person_id"
+							+ " and id_author = book_id_author"
+							+ " and catalog_name = book_catalog_name"
+							+ " group by isbn_book;";
+		
 			result = statement.executeQuery(query);
 			
-			ArrayList<Oeuvre> listCopies = new ArrayList<Oeuvre>();
+			ArrayList<Oeuvre> listeOeuvres = new ArrayList<Oeuvre>();
 			
-			// tant que j'ai des resultats (copies), je les parcours et je fais ce qui suit pour chacun
+			// tant que j'ai des resultats (oeuvres), je les parcours et je fais ce qui suit pour chacun
 			while (result.next()) {
 				
-				// On construit l'objet Copie
-				int idCopie = result.getInt("id_copy");
+				// On construit l'objet Auteur
+				String idAuteurNew = String.valueOf(result.getInt("book_id_author"));
+				String idPersonne = result.getString("id_person");
+				String prenomPersonne = result.getString("first_name");
+				String nomPersonne = result.getString("last_name");
 				
-				Date dateEmprunt = result.getDate("date_of_borrowing");
-					Calendar dateEmpruntFormatee = new GregorianCalendar();	
-					
-					if ( dateEmprunt != null ){	
-						dateEmpruntFormatee.setTime(dateEmprunt);
-					}else{
-						dateEmpruntFormatee = null;
-					}
+				Date dateDeNaissancePersonne = result.getDate("date_of_birth");	
+				Calendar dateDeNaissancePersonneFormatee = null;
+				if ( dateDeNaissancePersonne != null) {
+					dateDeNaissancePersonneFormatee = dateEnCalendar(dateDeNaissancePersonne);
+				}
 				
-				Date dateRetour = result.getDate("date_of_back");
-					Calendar dateRetourFormatee = new GregorianCalendar();	
-					if ( dateRetour != null ){							
-						dateRetourFormatee.setTime(dateRetour);
-					}else{
-						dateRetourFormatee = null;
-					}
 				
-				boolean copieEstDisponible = false;		
-					int copieEstDisponibleTinyInt = result.getInt("copy_is_available");
-						if (copieEstDisponibleTinyInt == 1){
-							copieEstDisponible = true;
-						}else{
-							copieEstDisponible = false;
-						}
-					
-				boolean copieEstEnReparation = false;	
-					int copieEstEnReparationTinyInt = result.getInt("copy_is_on_repairing");
-						if (copieEstEnReparationTinyInt == 1){
-							copieEstEnReparation = true;
-						}else{
-							copieEstEnReparation = false;
-						}
-						
-				boolean copieVientDEtreReparee = false;	
-				int copieVientDEtreRepareeTinyInt = result.getInt("copy_is_freshly_repeared");
-					if (copieVientDEtreRepareeTinyInt == 1){
-						copieVientDEtreReparee = true;
-					}else{
-						copieVientDEtreReparee = false;
-					}
+				Auteur auteur = new Auteur(idPersonne, prenomPersonne, nomPersonne, dateDeNaissancePersonneFormatee, idAuteurNew);
 				
-				String isbnOeuvre = result.getString("copy_isbn_book");
-			
+				System.out.println("auteur : "+ prenomPersonne + " " + nomPersonne);
+				// On construit l'objet Oeuvre
+				String isbnOeuvre = result.getString("isbn_book");
+				String titreOeuvre = result.getString("title_book");
+				String soutitreOeuvre = result.getString("subtitle_book");
+				
+				Date dateOeuvre = result.getDate("book_date");	
+				// pour avoir l'heure en plus : La classe "Date" est remplacée par "Timestamp" ,
+				// et dans sql "date" devient "datetime".
+				// il suffi de rajouter comme valeur dans sql hh::m::ss à la suite de la date yyy-MM-dd
+				// Timestamp dateOeuvre = result.getTimestamp("book_datetime"); 	
+				// il faut aussi modifier le format d'ecriture de la date "calendar" ,
+				// dans la methode to string de la classe de l objet qui comporte la ddate 
+				Calendar dateOeuvreFormatee = null;
+				if ( dateOeuvre != null) {
+					dateOeuvreFormatee = new GregorianCalendar();
+					dateOeuvreFormatee.setTime(dateOeuvre);
+				}
+				
+				
+				String nomGenre = result.getString("book_catalog_name");
+				int nbreDeCopies =  result.getInt("nbCopy");
+							
+		// requete 2 ( pour connaitre le nombre de copies disponibles )			
 				statement2 = connection.createStatement();
 				
-				String query2 = " select last_name, first_name "
-								+ " from subscriber, person"
-								+ " where subscriber_person_id = id_person"
-								+ " and id_subscriber = '" + idAbonne + "';";
+				String query2 = "select count(copy_is_available) as nbCopyAv from copy"
+								+ " where copy_isbn_book = '" + isbnOeuvre + "'"
+								+ " and copy_is_available = 1;";
+								
+				result2 = statement2.executeQuery(query2);				
+				result2.next();		
 				
-				result2 = statement2.executeQuery(query2);
-				result2.next();
-	
-				int idAbonneInt = Integer.valueOf(idAbonne);
-				String prenomAbonne = result2.getString("last_name");
-				String nomAbonne = result2.getString("first_name");
+				int nbreDeCopiesDisponibles =  result2.getInt("nbCopyAv");
+							
+				Oeuvre oeuvre = new Oeuvre(isbnOeuvre, titreOeuvre, soutitreOeuvre, dateOeuvreFormatee, auteur, nomGenre, nbreDeCopies, nbreDeCopiesDisponibles);
 				
-				statement2.close();
-				
-				statement3 = connection.createStatement();
-				
-				String query3 = " select * from book"
-							  + " where isbn_book = '" + isbnOeuvre + "';";
-				
-				result3 = statement3.executeQuery(query3);
-				result3.next();
-				
-				String titreOeuvre = result3.getString("title_book");
-				String soustitreOeuvre = result3.getString("subtitle_book");
-				
-				statement3.close();
-				
-				Copie copie = new Copie (idCopie, dateEmpruntFormatee, dateRetourFormatee, copieEstDisponible, copieVientDEtreReparee,
-						copieEstEnReparation, isbnOeuvre, titreOeuvre, soustitreOeuvre, idAbonneInt , prenomAbonne, nomAbonne);
-				
-				//listCopies.add(copie);				
+				listeOeuvres.add(oeuvre);				
 			}
 			
 			statement.close();
 			connection.close();
 			
-			//return listCopies;
-			return null;
+			return listeOeuvres;
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

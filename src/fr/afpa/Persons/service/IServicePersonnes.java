@@ -48,7 +48,7 @@ public interface IServicePersonnes {
 	
 	public void effacerAuteur(String idAuteur, String idPersonne);
 
-	public ArrayList<Oeuvre> consulterAuteur(String isbn);
+	public ArrayList<Oeuvre> consulterAuteur(String idAuteur);
 	
 
 }

@@ -93,11 +93,10 @@ public class ServicePersonnes implements IServicePersonnes{
 		return dao.obtenirAuteurParNom(nomAuteur);
 	}
 
-
-	public synchronized ArrayList<Oeuvre> consulterAuteur(String isbn) {
-		return dao.consulterAuteur(isbn);
+	public synchronized ArrayList<Oeuvre> consulterAuteur(String idAuteur) {
+		return dao.consulterAuteur(idAuteur);
 	}
-
+ 
 
 	
 	
